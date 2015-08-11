@@ -19,4 +19,6 @@ cd /home/vagrant
 wget http://rna.urmc.rochester.edu/RNAstructureLinuxTextInterfaces64bit.tgz
 tar xvzf RNAstructureLinuxTextInterfaces64bit.tgz
 
+ln -s /vagrant/data /home/vagrant/data
+
 echo "Finished bootstrap."
