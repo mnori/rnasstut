@@ -1,3 +1,17 @@
+	os.system(
+			rnastructure_path+"/exe/Fold"+ # the program
+		" "+constraints_dir+"/fragment.fasta"+ # the sequence of interest
+		out_opt+ # the output filename
+		constraints_opt # constraints option
+	)
+
+
+
+ath_18S.fasta
+
+
+Get RNAstructure command working (./Fold??)
+
 RNA SS prediction workshop
 18S rRNA example
 - Get phylogenetic structure to compare against
