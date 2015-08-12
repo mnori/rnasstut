@@ -1,3 +1,11 @@
+What's next?
+
+Constraints
+Setting up FoldAtlas
+
+////////////////////////////////////////////////////////////////
+
+
 Use ct2dot
 
 Then use RNAplot to do the plotting

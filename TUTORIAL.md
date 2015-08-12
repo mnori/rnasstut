@@ -1,8 +1,8 @@
-# Getting set up
-Please ensure you have the following installed:
+# Installation
+First, make you have the following installed:
 
-* [Vagrant](http://docs.vagrantup.com/v2/installation/)
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [Vagrant](http://docs.vagrantup.com/v2/installation/)
 
 After installing Vagrant and Git, enter your home directory, and run:
 
@@ -15,13 +15,13 @@ vagrant up
 This grabs the tutorial repository, and sets up an Ubuntu virtual machine, upon which you can play around and run various RNA structure prediction methods.
 
 # Tutorial
-We will be exploring two well established RNA structure prediction methods: `Fold` from the `RNAstructure` package, and `RNAfold`, which is part of the `ViennaRNA` package.
+We will be exploring two well established RNA structure prediction methods: `Fold` from the `RNAstructure` package, and `RNAfold`, which is part of the `ViennaRNA` package. Both methods use thermodynamic modelling to find optimum folds.
 
 ## `RNAstructure`: prediction from nucleotide sequence alone
-We will first try to predict the secondary structure of *A. thaliana* 18S rRNA from its sequence alone, using the `RNAstructure` `Fold` method. This uses a thermodynamics approach to find optimal RNA secondary structures.
+We will first try to predict the secondary structure of *A. thaliana* 18S rRNA from its sequence alone, using the `RNAstructure` `Fold` method.
 
 ### Running `RNAstructure Fold` from the command line
-`RNAstructure` can be run from the command line or using the [web interface](http://rna.urmc.rochester.edu/RNAstructureWeb/Servers/Predict1/Predict1.html). The web version is useful if you have a single sequence to analyse. If, however, you have a large batch of  sequences to process, the command line is a much better option. In this tutorial, we will be running everything from the command line.
+`RNAstructure` can be run from the command line or using the [web interface](http://rna.urmc.rochester.edu/RNAstructureWeb/Servers/Predict1/Predict1.html). The web version is useful if you have a single sequence to analyse. If, however, you have a large batch of  sequences to process, the command line is a much better option, since the analysis can be automated. In this tutorial, we will be running everything from the command line.
 
 Before running `Fold`, we must set an environmental variable, which points to a folder containing thermodynamic parameters for folding. These are provided as part of the `RNAstructure` package:
 
@@ -32,7 +32,7 @@ export DATAPATH=~/RNAstructure/data_tables
 We can now run `Fold` to predict the RNA structure:
 
 ```
-~/RNAstructure/exe/Fold ~/data/ath_18S.fasta ~/ath_18s_rnastructure_pred.txt.txt
+~/RNAstructure/exe/Fold ~/data/ath_18S.fasta ~/ath_18s_rnastructure_pred.txt
 ```
 
 `~/data/ath_18S.fasta` is the input sequence (18S rRNA in fasta format).
@@ -63,7 +63,7 @@ RNAfold < ~/data/ath_18S.fasta > ~/ath_18s_vienna_pred.txt
 ```
 
 ### Examining the output
-After opening the output file `~/ath_18s_vienna_pred.txt`, note the different format used to describe the secondary structure. This file is in Vienna's "dot bracket" notation. Paired bases are indicated using round brackets (`()`) whilst unpaired bases are denoted using dots. 
+After opening the output file `~/ath_18s_vienna_pred.txt`, note the different format used to describe the secondary structure. This file is in Vienna's "dot bracket" notation. Paired bases are indicated using round brackets, whilst unpaired bases are denoted using dots. 
 
 In this example, only the MFE structure is listed. The free energy estimate is provided at the end of the file.
 
@@ -74,7 +74,7 @@ We're going to compare `RNAstructure` and `Vienna` predictions, but first we nee
 ~/RNAstructure/exe/ct2dot ~/ath_18s_rnastructure_pred.txt 1 ~/ath_18s_rnastructure_pred.dot.txt 
 ```
 
-The first parameter is the raw CT file, and "1" indicates that we want to convert the first structure in the CT file. The last parameter is the output file.
+The first parameter is the raw CT file, and "1" indicates that we want to convert the first entry in the CT file, i.e. the MFE structure. The last parameter is the output file.
 
 Before we plot the structures, we should add a better label  to the beginning of each file. This can be done in a text editor, or quickly using the command line:
 
@@ -89,10 +89,8 @@ We can now generate structure diagrams for both predictions using the `Vienna`'s
 RNAplot -o svg < ~/rnastructure.dot
 RNAplot -o svg < ~/vienna.dot
 ```
-These images are named according to the labels that we added in the previous step. To access the images on your host machine, you can copy them to the `/vagrant` folder:
+The generated images are named according to the labels that we added in the previous step. To access the images on your host machine, you can copy them to the `/vagrant` folder:
 
 `cp ~/*.svg /vagrant`
 
-Then open the files from the tutorial install folder using a modern web browser. By looking at the structures, you should be able to see some agreement between the methods for shorter range interactions, with less agreement for predicting longer range interactions.
-
-
+Then open the `*.svg` files from the tutorial install folder using a modern web browser. By looking at the structures, you should be able to see some agreement between the methods for shorter range interactions, with less agreement for longer range interactions.
