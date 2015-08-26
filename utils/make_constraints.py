@@ -1,71 +1,82 @@
 import os
 
-# Generate an RNAstructure constraints file from the reactivities output
+# Generate constraints files from the reactivity output
 
-input_filepath = os.path.expanduser("~/data/18s_reactivities.txt")
-output_filepath = os.path.expanduser("~/data/18s_constraints_rnastructure.txt")
+def main():
+	input_filepath = os.path.expanduser("~/data/18s_reactivities.txt")
+	output_filepath = os.path.expanduser("~/data/18s_constraints_rnastructure.txt")
+	generate_rnastructure_constraints(input_filepath, output_filepath)
 
-outfile = open(output_filepath, "w")
+	fasta_filepath = os.path.expanduser("~/data/18s.fasta")
+	output_filepath = os.path.expanduser("~/data/18s_constraints_vienna.txt")
+	generate_vienna_constraints(input_filepath, fasta_filepath, output_filepath)
 
-infile = open(input_filepath, "r")
-line = infile.readline()
-infile.close()
+def generate_rnastructure_constraints(input_filepath, output_filepath):
 
-bits = line.split("\t")
-pos = 0
-for value in bits:
-	if pos != 0 and value != "NA":
-		outfile.write(str(pos)+"\t"+value+"\n")
-	pos += 1
+	outfile = open(output_filepath, "w")
 
-outfile.close()
-		
+	infile = open(input_filepath, "r")
+	line = infile.readline()
+	infile.close()
 
-fasta_filepath = os.path.expanduser("~/data/18s.fasta")
-output_filepath = os.path.expanduser("~/data/18s_constraints_vienna.txt")
-paired_thresh = 0.3
-unpaired_thresh = 0.7
+	bits = line.split("\t")
+	pos = 0
+	for value in bits:
+		if pos != 0 and value != "NA":
+			outfile.write(str(pos)+"\t"+value+"\n")
+		pos += 1
 
-# Grab the sequence out of the 18s.fasta
-f = open(fasta_filepath, "r")
-label = f.readline().strip()
-seq = f.readline().strip()
-f.close()
+	outfile.close()
 
-# Grab the constraints
-f = open(input_filepath, "r")
-line = f.readline()
-f.close()
-bits = line.split("\t")
+def generate_vienna_constraints(input_filepath, fasta_filepath, output_filepath):
+	fasta_filepath = os.path.expanduser("~/data/18s.fasta")
+	output_filepath = os.path.expanduser("~/data/18s_constraints_vienna.txt")
+	paired_thresh = 0.3
+	unpaired_thresh = 0.7
 
-# Generate Vienna constraints, this includes a sequence label, the sequence, 
-# and then the constraints.
-outfile = open(output_filepath, "w")
-outfile.write(label+"\n")
-outfile.write(seq+"\n")
-pos = 0
-for value in bits:
-	if pos != 0:
-		if value == "NA":
-			# is G or U. no constraint
-			char = "." 
-		
-		else:
-			floatval = float(value)
-			if floatval < paired_thresh:
-				# below the threshold, unpaired constraint
-				char = "x" 
+	# Grab the sequence out of the 18s.fasta
+	f = open(fasta_filepath, "r")
+	label = f.readline().strip()
+	seq = f.readline().strip()
+	f.close()
 
-			elif floatval < unpaired_thresh: 
-				# between the thresholds, no constraint
-				char = "."
+	# Grab the constraints
+	f = open(input_filepath, "r")
+	line = f.readline()
+	f.close()
+	bits = line.split("\t")
 
-			else: 
-				# above unpaired threshold, paired constraint
-				char = "|" # 
+	# Generate Vienna constraints, this includes a sequence label, the sequence, 
+	# and then the constraints.
+	outfile = open(output_filepath, "w")
+	outfile.write(label+"\n")
+	outfile.write(seq+"\n")
+	pos = 0
+	for value in bits:
+		if pos != 0:
+			if value == "NA":
+				# is G or U. no constraint
+				char = "." 
+			
+			else:
+				floatval = float(value)
+				if floatval < paired_thresh:
+					# below the threshold, unpaired constraint
+					char = "x" 
 
-		outfile.write(char)
-	pos += 1	
+				elif floatval < unpaired_thresh: 
+					# between the thresholds, no constraint
+					char = "."
 
-outfile.write("\n")
-outfile.close()
+				else: 
+					# above unpaired threshold, paired constraint
+					char = "|" # 
+
+			outfile.write(char)
+		pos += 1	
+
+	outfile.write("\n")
+	outfile.close()
+
+# get the party started
+main()
