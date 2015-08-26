@@ -61,16 +61,16 @@ def generate_vienna_constraints(input_filepath, fasta_filepath, output_filepath)
 			else:
 				floatval = float(value)
 				if floatval < paired_thresh:
-					# below the threshold, unpaired constraint
-					char = "x" 
+					# below the paired constraint threshold
+					char = "|" 
 
 				elif floatval < unpaired_thresh: 
 					# between the thresholds, no constraint
 					char = "."
 
 				else: 
-					# above unpaired threshold, paired constraint
-					char = "|" # 
+					# above unpaired constraint threshold
+					char = "x"
 
 			outfile.write(char)
 		pos += 1	
