@@ -12,10 +12,12 @@ cd rnasstut
 vagrant up
 ```
 
-This grabs the tutorial repository, and sets up an Ubuntu virtual machine, upon which you can play around and run various RNA structure prediction methods.
+This grabs the tutorial repository, and sets up an Ubuntu virtual machine (VM), upon which you can play around and run various RNA structure prediction methods.
+
+Before running commands, you'll need to log into the VM by running `vagrant ssh` inside the tutorial folder. All of the tutorial commands should be executed within the VM.
 
 # Tutorial
-We will be exploring two well established RNA structure prediction methods: `Fold` from the `RNAstructure` package, and `RNAfold`, which is part of the `ViennaRNA` package. Both methods use thermodynamic modelling to find optimum folds.
+We will be exploring two well established RNA structure prediction methods: `Fold` from the `RNAstructure` package, and `RNAfold`, which is part of the `ViennaRNA` package. Both methods use thermodynamic modelling to find optimum folds. 
 
 ## `RNAstructure`: prediction from nucleotide sequence alone
 We will first try to predict the secondary structure of *A. thaliana* 18S rRNA from its sequence alone, using the `RNAstructure` `Fold` method.
@@ -32,15 +34,15 @@ export DATAPATH=~/RNAstructure/data_tables
 We can now run `Fold` to predict the RNA structure:
 
 ```
-~/RNAstructure/exe/Fold ~/data/ath_18S.fasta ~/ath_18s_rnastructure_pred.txt
+~/RNAstructure/exe/Fold ~/data/18s.fasta ~/18s_rnastructure_pred_constrained.txt
 ```
 
-`~/data/ath_18S.fasta` is the input sequence (18S rRNA in fasta format).
-`~/ath_18s_rnastructure_pred.txt` is the output file.
+`~/data/18S_rRNA.fasta` is the input sequence (18S rRNA in fasta format).
+`~/18s_rnastructure_pred.txt` is the output file.
 
 ### The output
 
-Open `~/ath_18s_rnastructure_pred.txt`
+Open `~/18s_rnastructure_pred.txt`
 
 This is a Connectivity Table (CT) file, described in detail [here](http://rna.urmc.rochester.edu/Text/File_Formats.html).
 
@@ -59,11 +61,11 @@ After the free energy value, the remaining lines describe the structure itself:
 As with `RNAstructure`, there is a web based equivalent for the command we're about to run, which can be found [here](http://rna.tbi.univie.ac.at/cgi-bin/RNAfold.cgi). To run from the command line:
 
 ```
-RNAfold < ~/data/ath_18S.fasta > ~/ath_18s_vienna_pred.txt
+RNAfold < ~/data/18S.fasta > ~/18s_vienna_pred.txt
 ```
-
+`
 ### Examining the output
-After opening the output file `~/ath_18s_vienna_pred.txt`, note the different format used to describe the secondary structure. This file is in Vienna's "dot bracket" notation. Paired bases are indicated using round brackets, whilst unpaired bases are denoted using dots. 
+After opening the output file `~/18s_vienna_pred.txt`, note the different format used to describe the secondary structure. This file is in Vienna's "dot bracket" notation. Paired bases are indicated using round brackets, whilst unpaired bases are denoted using dots. 
 
 In this example, only the MFE structure is listed. The free energy estimate is provided at the end of the file.
 
@@ -71,7 +73,7 @@ In this example, only the MFE structure is listed. The free energy estimate is p
 We're going to compare `RNAstructure` and `Vienna` predictions, but first we need to make sure both structure files are in the same format. To convert RNAstructure's quirky CT file into dot bracket notation, use:
 
 ```
-~/RNAstructure/exe/ct2dot ~/ath_18s_rnastructure_pred.txt 1 ~/ath_18s_rnastructure_pred.dot.txt 
+~/RNAstructure/exe/ct2dot ~/18s_rnastructure_pred.txt 1 ~/18s_rnastructure_pred.dot.txt 
 ```
 
 The first parameter is the raw CT file, and "1" indicates that we want to convert the first entry in the CT file, i.e. the MFE structure. The last parameter is the output file.
@@ -79,8 +81,8 @@ The first parameter is the raw CT file, and "1" indicates that we want to conver
 Before we plot the structures, we should add a better label  to the beginning of each file. This can be done in a text editor, or quickly using the command line:
 
 ```
-sed "1s/.*/\>rnastructure/" ~/ath_18s_rnastructure_pred.dot.txt > rnastructure.dot
-sed "1s/.*/\>vienna/" ~/ath_18s_vienna_pred.txt > vienna.dot
+sed "1s/.*/\>rnastructure/" ~/18s_rnastructure_pred.dot.txt > rnastructure.dot
+sed "1s/.*/\>vienna/" ~/18s_vienna_pred.txt > vienna.dot
 ```
 
 We can now generate structure diagrams for both predictions using the `Vienna`'s `RNAplot`:
@@ -93,4 +95,45 @@ The generated images are named according to the labels that we added in the prev
 
 `cp ~/*.svg /vagrant`
 
-Then open the `*.svg` files from the tutorial install folder using a modern web browser. By looking at the structures, you should be able to see some agreement between the methods for shorter range interactions, with less agreement for longer range interactions.
+Then open the `*.svg` files from the tutorial install folder. By comparing the diagrams, you should be able to see some agreement between the methods for shorter range interactions, with less agreement for longer range interactions.
+
+## `RNAstructure`: prediction using sequence and constraints
+So far, we've predicted RNA structures using sequence alone. This is not particularly accurate. We can try to improve the prediction by including extra information from a chemical probing experiment. These extra data are called constraints, and *RNAstructure* uses these in the thermodynamics calculations as pseudo free energy terms.
+
+We'll be using constraints generated from a dimethyl sulfate (DMS) probing experiment of the 18S rRNA. DMS reacts with C and A nucleotides that are not involved in base pairing. The experiment produces normalised reactivity values. Values approaching 1 or above indicate a strong reactivity and thus a high probability that the corresponding base is unpaired.
+
+### The constraints file
+
+The file `~/data/18s_constraints.txt` contains normalised DMS reactivities in a format that `RNAstructure` understands. The first 10 lines look like this:
+
+```
+2	0.012685795205
+3	0.0
+4	0.0
+11	0.369865767367
+13	0.0
+14	0.0
+17	0.0
+18	0.0
+19	0.0
+22	0.291074839291
+```
+
+The first column is the sequence position and the 2nd is the normalised DMS reactivity. Missing positions are for G or U nucleotides, where DMS reactivity does not apply.
+
+We'll now run a prediction using these constraints:
+
+```
+~/RNAstructure/exe/Fold ~/data/18s.fasta ~/18s_rnastructure_pred_constrained.txt -dms ~/data/18s_constraints.txt
+```
+
+You can check out the output by drawing a structure plot as described earlier.
+
+## `ViennaFold`: prediction from sequence and constraints
+Unlike `RNAstructure`, `ViennaFold` does not support quantitative reactivity values; it is only able to handle constraints encoded as binary "paired" or "unpaired" states.
+
+The file `X` contains some constraints in `ViennaRNA`'s format. These have been generated by considering any base with a reactivity value above 0.7 as unpaired, and anything under 0.3 as paired. Bases with reactivities between 0.3 and 0.7 are considered ambiguous and are not constrained. This is a pretty crude way of treating the data; in practice, one might want to experiment with different classification thresholds.
+
+
+
+
