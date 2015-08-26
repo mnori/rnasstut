@@ -4,7 +4,7 @@ First, make you have the following installed:
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [Vagrant](http://docs.vagrantup.com/v2/installation/)
 
-After installing Vagrant and Git, enter your home directory, and run:
+After installing Git and Vagrant, enter your home directory, and run:
 
 ```
 git clone https://github.com/mnori/rnasstut.git
@@ -85,7 +85,7 @@ sed "1s/.*/\>rnastructure/" ~/18s_rnastructure_pred.dot.txt > rnastructure.dot
 sed "1s/.*/\>vienna/" ~/18s_vienna_pred.txt > vienna.dot
 ```
 
-We can now generate structure diagrams for both predictions using the `Vienna`'s `RNAplot`:
+We can now generate structure diagrams for both predictions using `Vienna`'s `RNAplot`:
 
 ```
 RNAplot -o svg < ~/rnastructure.dot
@@ -117,6 +117,7 @@ The file `~/data/18s_constraints.txt` contains normalised DMS reactivities in a 
 18	0.0
 19	0.0
 22	0.291074839291
+...
 ```
 
 The first column is the sequence position and the 2nd is the normalised DMS reactivity. Missing positions are for G or U nucleotides, where DMS reactivity does not apply.
@@ -149,4 +150,24 @@ To run ViennaFold with the constraints, use:
 The extra `-C` option indicates that we are running in constraints mode. As with the earlier example, the output will be in dot bracket notation. Try generating a structure diagram, and compare it against the results you made earlier.
 
 ## Determining structure prediction accuracy
+
+We can assess the performance of each prediction by comparing against a high-confidence reference stucture. The best structure available for the 18S rRNA comes from phylogenetic comparisons. The file `18s_phylogenetic.txt` contains a summary of this structure:
+
+```
+1	T	s
+2	A	s
+3	C	s
+4	C	d
+5	T	d
+6	G	d
+7	G	d
+8	T	s
+9	T	s
+10	G	s
+...
+```
+
+Column 1 is the position, column 2 the base. In column 3, `s` indicates that the base is single stranded, whilst `d` denotes that the base is paired (i.e. double stranded). To assess the accuracy, we'll count the true positive (TP), true negative (TN), false positive (FN) and false positive (FP)) rates by comparing each prediction against this reference structure. We'll do this using a python script.
+
+
 
