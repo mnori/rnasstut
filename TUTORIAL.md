@@ -34,7 +34,7 @@ export DATAPATH=~/RNAstructure/data_tables
 We can now run `Fold` to predict the RNA structure:
 
 ```
-~/RNAstructure/exe/Fold ~/data/18s.fasta ~/18s_rnastructure_pred_constrained.txt
+~/RNAstructure/exe/Fold ~/data/18s.fasta ~/18s_rnastructure_pred.txt
 ```
 
 `~/data/18S_rRNA.fasta` is the input sequence (18S rRNA in fasta format).
@@ -131,7 +131,7 @@ We'll now run a prediction using these constraints:
 You can check out the output by drawing a structure plot as described earlier.
 
 ## `ViennaFold`: prediction from sequence and constraints
-Unlike `RNAstructure`, `ViennaFold` does not support quantitative reactivity values; it is only able to handle constraints encoded as "unconstrained", "paired" or "unpaired" states. The file `~/data/18s_constraints_vienna.txt` contains some constraints in `ViennaRNA`'s format:
+Unlike `RNAstructure`, `ViennaFold` does not support quantitative "soft" reactivity values; it is only able to handle "hard" constraints encoded as "unconstrained", "paired" or "unpaired" states. The file `~/data/18s_constraints_vienna.txt` contains some constraints in `ViennaRNA`'s format:
 
 ```
 >Ath_18S
@@ -167,7 +167,7 @@ We can assess the performance of each prediction by comparing against a high-con
 ...
 ```
 
-Column 1 is the position, column 2 the base. In column 3, `s` indicates that the base is single stranded, whilst `d` denotes that the base is paired (i.e. double stranded). To assess the accuracy, we'll count the true positive (TP), true negative (TN), false positive (FN) and false positive (FP)) rates by comparing each prediction against this reference structure. We'll do this using a python script.
+Column 1 is the position, column 2 the base. In column 3, `s` indicates that the base is single stranded, whilst `d` denotes that the base is paired (i.e. double stranded). To assess the accuracy, we'll compare each prediction against the reference, and count the true positives (TPs), true negatives (TNs), false positives (FNs) and false negatives (FNs) at each position. We'll do this using a python script. To compare against 
 
 
 
