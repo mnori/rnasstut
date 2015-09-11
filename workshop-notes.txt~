@@ -1,17 +1,10 @@
-FoldAtlas - fix pages system
-Generic titles and URLs selection
-Generic hide/show system as well
-Maybe do away with hidden style shiz and just add/remove elements as needed
+Run all the analysis
+Finish off sens/spec comparison script by making it CLI compatible
+Update the documentation with sens/spec stuff
 
-Spinner should fade out
+Done
 
-FoldAtlas /documentation
-
-Load via ajax when clicked
-Or with page when URL is direct
-
-Constraints
-Setting up FoldAtlas
+Start working on slides for workshop
 
 ////////////////////////////////////////////////////////////////
 

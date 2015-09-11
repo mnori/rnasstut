@@ -42,7 +42,7 @@ We can now run `Fold` to predict the RNA structure:
 
 ### The output
 
-Open `~/18s_rnastructure_pred.txt`
+Open `~/18s_rnastructure_pred.txt`, e.g. by using the `less` command.
 
 This is a Connectivity Table (CT) file, described in detail [here](http://rna.urmc.rochester.edu/Text/File_Formats.html).
 

@@ -16,7 +16,10 @@ apt-get -y install vienna-rna
 # http://rna.urmc.rochester.edu/Text/index.html
 
 cd /home/vagrant
-wget http://rna.urmc.rochester.edu/RNAstructureLinuxTextInterfaces64bit.tgz
+echo "Downloading RNAstructure..."
+wget http://rna.urmc.rochester.edu/RNAstructureLinuxTextInterfaces64bit.tgz >&/dev/null
+echo "...Finished downloading RNAstructure"
+
 tar xvzf RNAstructureLinuxTextInterfaces64bit.tgz
 rm RNAstructureLinuxTextInterfaces64bit.tgz
 

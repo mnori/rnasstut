@@ -79,7 +79,7 @@ def compare_structures(pred, ref):
 	print("Double stranded specificity	: %"+str(spec_ds))
 	print("Double stranded correct		: %"+str(pc_ds_true))
 	print("")
-	print("Tot correct            		: %"+str(pc_tot_true))
+	print("Percentage agreement    		: %"+str(pc_tot_true))
 
 
 # Load reference secondary structure into an array
@@ -105,6 +105,10 @@ def get_rnastructure_pred(pred_filepath):
 			ss_values.append("s" if bits[4] == "0" else "d")
 
 	return ss_values
+
+# Load Vienna prediction into an array
+def get_vienna_pred(pred_filepath):
+	print(pred_filepath)
 
 # get the party started
 main()
