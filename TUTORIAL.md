@@ -48,6 +48,20 @@ This is a Connectivity Table (CT) file, described in detail [here](http://rna.ur
 
 The file consists of around 20 structures. For each structure, the first line indicates its Gibbs free energy estimate. Structures with lower free energies are listed first, and are the most favourable. The first structure in the file is the minimum free energy (MFE) structure.
 
+```
+ 1808  ENERGY = -634.3  Ath_18S
+    1 T       0    2    0    1
+    2 A       1    3 1777    2
+    3 C       2    4 1776    3
+    4 C       3    5 1775    4
+    5 T       4    6 1774    5
+    6 G       5    7    0    6
+    7 G       6    8 1772    7
+    8 T       7    9 1771    8
+    9 T       8   10 1770    9
+   10 G       9   11 1769   10
+```
+
 After the free energy value, the remaining lines describe the structure itself:
 
 * Column 1: nucleotide position
