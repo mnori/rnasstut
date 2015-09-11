@@ -60,6 +60,7 @@ The file consists of around 20 structures. For each structure, the first line in
     8 T       7    9 1771    8
     9 T       8   10 1770    9
    10 G       9   11 1769   10
+   ...
 ```
 
 After the free energy value, the remaining lines describe the structure itself:
@@ -77,8 +78,15 @@ As with `RNAstructure`, there is a web based equivalent for the command we're ab
 ```
 RNAfold < ~/data/18s.fasta > ~/18s_vienna_pred.txt
 ```
-`
+
 ### Examining the output
+
+```
+>Ath_18S
+UACCUGGUUGAUCCUGCCAGUAGUCAUAUGCUUGUCUCAAAGAUUAAGCCA (... etc)
+((((((((((..(((.(((..((((....((((((((...))).))))).. (... etc) (-638.20)
+```
+
 After opening the output file `~/18s_vienna_pred.txt`, note the different format used to describe the secondary structure. This file is in Vienna's "dot bracket" notation. Paired bases are indicated using round brackets, whilst unpaired bases are denoted using dots. 
 
 In this example, only the MFE structure is listed. The free energy estimate is provided at the end of the file.

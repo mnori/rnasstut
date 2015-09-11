@@ -1,8 +1,3 @@
-Run all the analysis
-Finish off sens/spec comparison script by making it CLI compatible
-Update the documentation with sens/spec stuff
-Done
-Start working on slides for workshop
 
 ////////////////////////////////////////////////////////////////
 
