@@ -10,25 +10,25 @@ def main():
 		exit()
 
 	pred_arg = sys.argv[1]
-	ref_arg = sys.argv[2]
+	ref_arg = os.path.expanduser(sys.argv[2])
 
 	# Path to the non-constrained RNAstructure prediction
 	flag = pred_arg[:3]
-	pred_filepath = pred_arg.split("=")[1]
+	pred_filepath = os.path.expanduser(pred_arg.split("=")[1])
 	if flag == "-r=":
-		pred_structure = get_rnastructure_pred(os.path.expanduser(pred_filepath))
+		pred_structure = get_rnastructure_pred(pred_filepath)
 
 	elif flag == "-v=":
-		
+		pred_structure = get_vienna_pred(pred_filepath)
 
 	else:
 		print ("Invalid flag ["+flag+"]")
 		exit()
 
 	# Path to the phylogenetic reference structure, to compare against
-	ref_structure = get_ref_structure(os.path.expanduser(ref_arg))
+	ref_structure = get_ref_structure(ref_arg)
 
-	compare_structures(ref_structure, pred_structure)
+	compare_structures(pred_structure, ref_structure)
 
 # Compare predicted structure against ref. Calculate similarity statistics
 def compare_structures(pred, ref):
@@ -119,7 +119,13 @@ def get_rnastructure_pred(pred_filepath):
 
 # Load Vienna prediction into an array
 def get_vienna_pred(pred_filepath):
-	print(pred_filepath)
+	ss_values = []
+	with open(pred_filepath) as f:
+		dotbracket = f.readlines()[2]
+		for pos in range(0, len(dotbracket)):
+			ss_values.append("s" if dotbracket[pos] == "." else "d")
+
+	return ss_values
 
 # get the party started
 main()
