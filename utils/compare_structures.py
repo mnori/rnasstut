@@ -1,22 +1,32 @@
 # Compares ViennaRNA or RNAstructure predicted structures against a phylogenetic structure
 # @author Matthew Norris <matthew.norris@jic.ac.uk>
 
-import os
+import os, sys
 
 def main():
 
-	# Path to the phylogenetic reference structure
-	reference_filepath = os.path.expanduser("~/data/18s_phylogenetic.txt")
+	if len(sys.argv) != 3:
+		print ("Must call compare_structures.py with exactly 2 arguments")
+		exit()
+
+	pred_arg = sys.argv[1]
+	ref_arg = sys.argv[2]
 
 	# Path to the non-constrained RNAstructure prediction
-	# Definitely need to make this a command line arg
+	flag = pred_arg[:3]
+	pred_filepath = pred_arg.split("=")[1]
+	if flag == "-r=":
+		pred_structure = get_rnastructure_pred(os.path.expanduser(pred_filepath))
 
-	# pred_filepath = os.path.expanduser("~/18s_rnastructure_pred.txt")
-	pred_filepath = os.path.expanduser("~/18s_rnastructure_pred_constrained.txt")
-	
+	elif flag == "-v=":
+		
 
-	ref_structure = get_ref_structure(reference_filepath)
-	pred_structure = get_rnastructure_pred(pred_filepath)
+	else:
+		print ("Invalid flag ["+flag+"]")
+		exit()
+
+	# Path to the phylogenetic reference structure, to compare against
+	ref_structure = get_ref_structure(os.path.expanduser(ref_arg))
 
 	compare_structures(ref_structure, pred_structure)
 
@@ -40,15 +50,15 @@ def compare_structures(pred, ref):
 			if ref[i] == "d":
 				true_ds += 1
 
-	print(str(true_ss)+" "+str(true_ds)+" "+str(tot_ss)+" "+str(tot_ds))
+	# print(str(true_ss)+" "+str(true_ds)+" "+str(tot_ss)+" "+str(tot_ds))
 
 	true_ss = float(true_ss)
 	true_ds = float(true_ds)
 
 	# Calculate some summary stats
-	pc_ss_true 	= 100 * (true_ss / tot_ss)
-	pc_ds_true 	= 100 * (true_ds / tot_ds)
-	pc_tot_true = 100 * ((true_ss + true_ds) / (tot_ss + tot_ds))
+	pc_ss_true 	= round(100 * (true_ss / tot_ss), 2)
+	pc_ds_true 	= round(100 * (true_ds / tot_ds), 2)
+	pc_tot_true = round(100 * ((true_ss + true_ds) / (tot_ss + tot_ds)), 2)
 
 	# Get TP, FP, TN, FN with respect SS predictions. Calc sens and spec
 	tp_ss = true_ss
@@ -56,8 +66,8 @@ def compare_structures(pred, ref):
 	fp_ss = tot_ss - true_ss
 	fn_ss = tot_ds - true_ds
 
-	sens_ss = tp_ss / (tp_ss + fn_ss)
-	spec_ss = tn_ss / (tn_ss + fp_ss)
+	sens_ss = round((100 * tp_ss) / (tp_ss + fn_ss), 2)
+	spec_ss = round((100 * tn_ss) / (tn_ss + fp_ss), 2)
 
 	# Get the same but with DS predictions. Basically same as SS but inverted.
 	tp_ds = true_ds
@@ -65,21 +75,22 @@ def compare_structures(pred, ref):
 	fp_ds = tot_ds - true_ds
 	fn_ds = tot_ss - true_ss
 
-	sens_ds = tp_ds / (tp_ds + fn_ds)
-	spec_ds = tn_ds / (tn_ds + fp_ds)
+	sens_ds = round((100 * tp_ds) / (tp_ds + fn_ds), 2)
+	spec_ds = round((100 * tn_ds) / (tn_ds + fp_ds), 2)
 
 	print("")
 	print("RESULTS:")
 	print("")
-	print("Single stranded sensitivity	: %"+str(sens_ss))
-	print("Single stranded specificity	: %"+str(spec_ss))
-	print("Single stranded correct		: %"+str(pc_ss_true))
+	print("Single stranded sensitivity:   % "+str(sens_ss))
+	print("Single stranded specificity:   % "+str(spec_ss))
+	print("Single stranded correct:       % "+str(pc_ss_true))
 	print("")
-	print("Double stranded sensitivity	: %"+str(sens_ds))
-	print("Double stranded specificity	: %"+str(spec_ds))
-	print("Double stranded correct		: %"+str(pc_ds_true))
+	print("Double stranded sensitivity:   % "+str(sens_ds))
+	print("Double stranded specificity:   % "+str(spec_ds))
+	print("Double stranded correct:       % "+str(pc_ds_true))
 	print("")
-	print("Percentage agreement    		: %"+str(pc_tot_true))
+	print("Percentage agreement:          % "+str(pc_tot_true))
+	print("")
 
 
 # Load reference secondary structure into an array
