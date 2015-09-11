@@ -192,11 +192,13 @@ We can assess the performance of each prediction by comparing against a high-con
 Column 1 is the position, column 2 the base. In column 3, `s` indicates that the base is single stranded, whilst `d` denotes that the base is paired (i.e. double stranded). To assess the accuracy, we'll compare each prediction against the reference, and count the true positives (TPs), true negatives (TNs), false positives (FNs) and false negatives (FNs) at each position. We'll do this using a python script. To compare the RNAstructure *in silico* and *in vivo* predictions against the phylogenetic structure:
 
 `python3 ~/utils/compare_structures.py -r=~/18s_rnastructure_pred.txt ~/data/18s_phylogenetic.txt`
+
 `python3 ~/utils/compare_structures.py -r=~/18s_rnastructure_pred_constrained.txt ~/data/18s_phylogenetic.txt`
 
 Likewise the `ViennaFold` predictions can be compared against the phylogenetic structure:
 
 `python3 ~/utils/compare_structures.py -v=~/18s_vienna_pred.txt ~/data/18s_phylogenetic.txt`
+
 `python3 ~/utils/compare_structures.py -v=~/18s_vienna_pred_constrained.txt ~/data/18s_phylogenetic.txt`
 
 
