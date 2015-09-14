@@ -3,7 +3,7 @@ import os
 # Generate constraints files from the reactivity output
 
 def main():
-	gen_fragment(205, 260)
+	gen_fragment(1, 1808)
 
 def gen_fragment(start, stop):
 	# start and stop are inclusive. they also start at 1

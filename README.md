@@ -201,5 +201,4 @@ Likewise the `ViennaFold` predictions can be compared against the phylogenetic s
 
 `python3 ~/utils/compare_structures.py -v=~/18s_vienna_pred_constrained.txt ~/data/18s_phylogenetic.txt`
 
-
-
+You should see a slight improvement in predictive performance when secondary structure constraints are used.
