@@ -3,7 +3,8 @@ import os
 # Generate constraints files from the reactivity output
 
 def main():
-	gen_fragment(1, 1808)
+	# gen_fragment(1345, 1435) # nice independent fragment
+	gen_fragment(430, 600) # another nice one
 
 def gen_fragment(start, stop):
 	# start and stop are inclusive. they also start at 1
@@ -42,7 +43,7 @@ def generate_rnastructure_constraints(input_filepath, output_filepath, start, st
 def generate_vienna_constraints(input_filepath, fasta_filepath, output_filepath, start, stop):
 	output_filepath = os.path.expanduser(output_filepath)
 	paired_thresh = 0.3
-	unpaired_thresh = 0.7
+	unpaired_thresh = 0.6
 
 	# Grab the sequence out of the 18s.fasta
 	f = open(fasta_filepath, "r")
