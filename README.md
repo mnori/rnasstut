@@ -202,3 +202,9 @@ Likewise the `ViennaFold` predictions can be compared against the phylogenetic s
 `python3 ~/utils/compare_structures.py -v=~/18s_vienna_pred_constrained.txt ~/data/18s_phylogenetic.txt`
 
 You should see a slight improvement in predictive performance when secondary structure constraints are used.
+
+## Trying a different fragment
+
+So far, we've been testing predictions using a fragment of the 18S rRNA, from positions 430 and 600. You might want to try a different fragment. The script utils/make_fragment.py takes start and stop positions as parameters, and generates `18s_` prefixed files that can be used as described above to make RNA structure predictions. The fragment between positions 1645 and 1808 also works quite well, since it contains only intra-fragment interactions. Other fragments may not be as easy to predict, due to interactions with other parts of the molecule that are not included in the fragment.
+
+You can refer to the 18S structure diagram `~/data/18s_structure_diagram.png` when choosing fragments to test.
