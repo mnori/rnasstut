@@ -205,6 +205,8 @@ You should see a slight improvement in predictive performance when secondary str
 
 ## Trying a different fragment
 
-So far, we've been testing predictions using a fragment of the 18S rRNA, from positions 430 and 600. You might want to try a different fragment. The script utils/make_fragment.py takes start and stop positions as parameters, and generates `18s_` prefixed files that can be used as described above to make RNA structure predictions. The fragment between positions 1645 and 1808 also works quite well, since it contains only intra-fragment interactions. Other fragments may not be as easy to predict, due to interactions with other parts of the molecule that are not included in the fragment.
+So far, we've been testing predictions using a fragment of the 18S rRNA, extracted from positions 430 to 600. We need to use fragments, since several regions of the 18S rRNA are covered by protein, which interferes with the structure prediction. The fragment between positions 1345 and 1435 gives decent results, since it contains only intra-fragment interactions. Other fragments may not work as well, due to interactions with other parts of the molecule that are not included in the fragment.
+
+If you want to try a different fragment, the script utils/make_fragment.py takes start and stop positions as parameters, and generates `18s_` prefixed files that can be used as inputs for predictions, as described earlier.
 
 You can refer to the 18S structure diagram `~/data/18s_structure_diagram.png` when choosing fragments to test.

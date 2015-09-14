@@ -1,10 +1,22 @@
-import os
+import os, sys
 
 # Generate constraints files from the reactivity output
 
 def main():
+
+	if len(sys.argv) != 3:
+		print ("Must call with exactly 2 arguments")
+		exit()
+
+	# Good fragments
+	# 1345, 1435
+	# 430, 600
+
+	start_arg = int(sys.argv[1])
+	stop_arg = int(sys.argv[2])
+
 	# gen_fragment(1345, 1435) # nice independent fragment
-	gen_fragment(430, 600) # another nice one
+	gen_fragment(start_arg, stop_arg) # another nice one
 
 def gen_fragment(start, stop):
 	# start and stop are inclusive. they also start at 1

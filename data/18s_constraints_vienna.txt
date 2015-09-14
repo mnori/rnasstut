@@ -1,3 +1,3 @@
 >Ath_18S
-GCAGGCGCGCAAATTACCCAATCCTGACACGGGGAGGTAGTGACAATAAATAACAATACTGGGCTCTTTCGAGTCTGGTAATTGGAATGAGTACAATCTAAATCCCTTAACGAGGATCCATTGGAGGGCAAGTCTGGTGCCAGCAGCCGCGGTAATTCCAGCTCCAATAGC
-.||..|.|.|.|x..||||.|.|...x||.....|...|...xx||.|||.|||...||....|.|...|.|..|....||....xx..x.....|...xxx.x.|..xxx.x..x.|......|...xxx........|||....||.|...xx..|...|.||||...|
+GCTAACTAGCTACGTGGAGGCATCCCTTCACGGCCGGCTTCTTAGAGGGACTATGGCCGTTTAGGCCAAGGAAGTTTGAGGCAATAACAGG
+...|||.|.|..|....|...|..||..|.|..|...|..|..|.....||.....||.......||.....|.....|..|.|.|||...
