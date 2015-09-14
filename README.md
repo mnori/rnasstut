@@ -20,7 +20,7 @@ Before running commands, you'll need to log into the VM by running `vagrant ssh`
 We will be exploring two well established RNA structure prediction methods: `Fold` from the `RNAstructure` package, and `RNAfold`, which is part of the `ViennaRNA` package. Both methods use thermodynamic modelling to find optimum folds. 
 
 ## `RNAstructure`: prediction from nucleotide sequence alone
-We will first try to predict the secondary structure of *A. thaliana* 18S rRNA from its sequence alone, using the `RNAstructure` `Fold` method.
+We will first try to predict the secondary structure of an *A. thaliana* 18S rRNA fragment from its sequence alone, using the `RNAstructure` `Fold` method.
 
 ### Running `RNAstructure Fold` from the command line
 `RNAstructure` can be run from the command line or using the [web interface](http://rna.urmc.rochester.edu/RNAstructureWeb/Servers/Predict1/Predict1.html). The web version is useful if you have a single sequence to analyse. If, however, you have a large batch of  sequences to process, the command line is a much better option, since the analysis can be automated. In this tutorial, we will be running everything from the command line.
