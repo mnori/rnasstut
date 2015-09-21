@@ -2,9 +2,10 @@
 First, make you have the following installed:
 
 * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant](http://docs.vagrantup.com/v2/installation/)
 
-After installing Git and Vagrant, enter your home directory, and run:
+After installing Git, Virtualbox and Vagrant, enter your home directory, and run:
 
 ```
 git clone https://github.com/mnori/rnasstut.git
