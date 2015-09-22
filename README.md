@@ -1,3 +1,7 @@
+# FoldAtlas
+
+The FoldAtlas demo can be seen running [here](http://52.89.80.163/).
+
 # Installation
 First, make you have the following installed:
 
