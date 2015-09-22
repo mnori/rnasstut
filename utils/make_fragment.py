@@ -15,7 +15,6 @@ def main():
 	start_arg = int(sys.argv[1])
 	stop_arg = int(sys.argv[2])
 
-	# gen_fragment(1345, 1435) # nice independent fragment
 	gen_fragment(start_arg, stop_arg) # another nice one
 
 def gen_fragment(start, stop):
@@ -36,6 +35,7 @@ def gen_fragment(start, stop):
 	phylo_output = os.path.expanduser("~/data/18s_phylogenetic.txt")
 	slice_phylo(phylo_input, phylo_output, start=start, stop=stop)
 
+# Generate constraints in RNAstructure format.
 def generate_rnastructure_constraints(input_filepath, output_filepath, start, stop):
 	outfile = open(output_filepath, "w")
 	infile = open(input_filepath, "r")
@@ -52,6 +52,7 @@ def generate_rnastructure_constraints(input_filepath, output_filepath, start, st
 
 	outfile.close()
 
+# Generate ViennaRNA constraints by applying paired/unpaired thresholds
 def generate_vienna_constraints(input_filepath, fasta_filepath, output_filepath, start, stop):
 	output_filepath = os.path.expanduser(output_filepath)
 	paired_thresh = 0.3
@@ -100,6 +101,7 @@ def generate_vienna_constraints(input_filepath, fasta_filepath, output_filepath,
 	outfile.write("\n")
 	outfile.close()
 
+# Retrieve part of the sequence in a fasta file
 def slice_fasta(input_filepath, output_filepath, start, stop):
 	with open(input_filepath, "r") as r:
 		seq_id = r.readline().strip()
@@ -108,6 +110,7 @@ def slice_fasta(input_filepath, output_filepath, start, stop):
 			w.write(seq_id+"\n")
 			w.write(seq)
 
+# Retrieve part of the phylogenetic reference structure
 def slice_phylo(phylo_input, phylo_output, start, stop):
 	buf = ""
 	pos = 1
