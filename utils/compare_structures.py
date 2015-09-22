@@ -33,10 +33,6 @@ def main():
 # Compare predicted structure against ref. Calculate similarity statistics
 def compare_structures(pred, ref):
 
-	# Initialise some counters (ss = single stranded, ds = double stranded)
-	# The tot values are tot predicted
-	# true_ss = true_ds = tot_ss = tot_ds = 0
-
 	pred_p = pred_n = tp = tn = 0
 
 	# Count up how many SS and DS predictions were correct, relative to the phylo structure
@@ -77,47 +73,6 @@ def compare_structures(pred, ref):
 	print("    Specificity:               "+str(specificity))
 	print("    Overall accuracy:          "+str(accuracy))
 	print("")
-
-	# true_ss = float(true_ss)
-	# true_ds = float(true_ds)
-
-	# # Calculate some summary stats
-	# pc_ss_true 	= round(100 * (true_ss / tot_ss), 2)
-	# pc_ds_true 	= round(100 * (true_ds / tot_ds), 2)
-	# pc_tot_true = round(100 * ((true_ss + true_ds) / (tot_ss + tot_ds)), 2)
-
-	# # Get TP, FP, TN, FN with respect SS predictions. Calc sens and spec
-	# tp_ss = true_ss
-	# tn_ss = true_ds
-	# fp_ss = tot_ss - true_ss
-	# fn_ss = tot_ds - true_ds
-
-	# sens_ss = round((100 * tp_ss) / (tp_ss + fn_ss), 2)
-	# spec_ss = round((100 * tn_ss) / (tn_ss + fp_ss), 2)
-
-	# # Get the same but with DS predictions. Basically same as SS but inverted.
-	# tp_ds = true_ds
-	# tn_ds = true_ss
-	# fp_ds = tot_ds - true_ds
-	# fn_ds = tot_ss - true_ss
-
-	# sens_ds = round((100 * tp_ds) / (tp_ds + fn_ds), 2)
-	# spec_ds = round((100 * tn_ds) / (tn_ds + fp_ds), 2)
-
-	# print("")
-	# print("Results with respect to double stranded:")
-	# print("")
-	# print("Single stranded sensitivity:   % "+str(sens_ss))
-	# print("Single stranded specificity:   % "+str(spec_ss))
-	# print("Single stranded correct:       % "+str(pc_ss_true))
-	# print("")
-	# print("Double stranded sensitivity:   % "+str(sens_ds))
-	# print("Double stranded specificity:   % "+str(spec_ds))
-	# print("Double stranded correct:       % "+str(pc_ds_true))
-	# print("")
-	# print("Percentage agreement:          % "+str(pc_tot_true))
-	# print("")
-
 
 # Load reference secondary structure into an array
 def get_ref_structure(reference_filepath):
