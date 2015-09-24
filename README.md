@@ -131,7 +131,7 @@ We'll be using constraints generated from a dimethyl sulfate (DMS) probing exper
 
 ### The constraints file
 
-The file `~/data/18s_constraints.txt` contains normalised DMS reactivities in a format that `RNAstructure` understands. The first 10 lines look like this:
+The file `~/data/18s_constraints_rnastructure.txt` contains normalised DMS reactivities in a format that `RNAstructure` understands. The first 10 lines look like this:
 
 ```
 2	0.012685795205
